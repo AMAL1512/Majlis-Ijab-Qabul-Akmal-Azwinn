@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>MAJLIS IJAB & QABUL AZWINN & AKMAL</title>
     <style>
+        /* Basic reset and layout styling */
         body, html {
             margin: 0;
             padding: 0;
@@ -13,9 +14,8 @@
             flex-direction: column;
             justify-content: center;
             align-items: center;
-            background: #f5f5f5;
-            color: #333;
         }
+
         #pdf-container {
             width: 100%;
             height: calc(100% - 80px); /* Reserve space for audio player */
@@ -23,12 +23,14 @@
             display: flex;
             justify-content: center;
         }
+
         iframe {
             width: 90%;
-            max-width: 800px;
+            max-width: 800px; /* Set max width to limit size on larger screens */
             height: 100%;
             border: none;
         }
+
         #audio-container {
             position: relative;
             bottom: 0;
@@ -39,11 +41,19 @@
             text-align: center;
             z-index: 1000;
         }
+
         audio {
             width: 100%;
             max-width: 300px;
             height: 30px;
         }
+
+        /* Ensure smooth scrolling */
+        html, body {
+            scroll-behavior: smooth;
+        }
+
+        /* Responsive design adjustments */
         @media (max-width: 600px) {
             #audio-container {
                 font-size: 12px;
@@ -61,7 +71,7 @@
     
     <div id="audio-container">
         <h2 style="font-size: 14px; margin: 0;">Listen to Our Song</h2>
-        <audio id="background-music" muted>
+        <audio id="background-music" controls>
             <source src="song.mp3" type="audio/mpeg">
             Your browser does not support the audio element.
         </audio>
@@ -71,14 +81,16 @@
         document.addEventListener('DOMContentLoaded', function() {
             var audio = document.getElementById('background-music');
 
-            // Attempt to autoplay the audio and unmute after user interaction
+            // Attempt to autoplay the audio
             audio.play().catch(function(error) {
+                // Log autoplay errors and handle user interaction if needed
                 console.log('Autoplay blocked. User interaction may be required.');
-                document.body.addEventListener('click', function() {
-                    audio.muted = false;
-                    audio.play().catch(function(error) {
-                        console.log('Autoplay failed even with user interaction.');
-                    });
+            });
+
+            // Optional: Add a user interaction event to unmute and play the audio if needed
+            document.body.addEventListener('click', function() {
+                audio.play().catch(function(error) {
+                    console.log('Autoplay failed even with user interaction.');
                 });
             });
         });
